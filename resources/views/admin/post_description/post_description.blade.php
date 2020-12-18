@@ -1,4 +1,4 @@
-@extends('layouts.post_layout')
+@extends('layouts.reviewPost')
 
 @section('post_description')
     <button class="btn btn-secondary" type="button" style="margin-top:3%" >

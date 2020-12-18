@@ -181,9 +181,9 @@
   </head>
   <body>
     <div class="testbox">
-      <form action="{{url('admin/post/updateDescription/'.$post->id)}}" method="POST" enctype="multipart/form-data">
+      <form action="{{url('admin/post/savePostContent')}}" method="POST" enctype="multipart/form-data">
         @csrf
-        
+
         <div class="banner">
           <h1>Tạo Nội Dung Cho Bài Viết</h1>
         </div>
@@ -211,14 +211,6 @@
             CKEDITOR.config.height='600px';
             </script>
           </div>
-        {{-- <div class="question">
-          <p>College</p>
-          <div class="question-answer">
-            <input type="radio" value="none" id="radio_11" name="college"/>
-            <label for="radio_11" class="radio"><span>Yes</span></label>
-            <input type="radio" value="none" id="radio_12" name="college" />
-            <label for="radio_12" class="radio"><span>No</span></label>
-          </div> --}}
 
         <div class="btn-block" style="display: flex; justify-content: space-around" >
             <button class="btn">

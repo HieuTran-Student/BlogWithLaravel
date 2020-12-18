@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
 
         #region My Middleware
         'CheckAdminLogin' => \App\Http\Middleware\CheckAdminLogin::class,
+        'CheckUserLogin' => \App\Http\Middleware\CheckUserLogin::class,
         #endregion
     ];
 }

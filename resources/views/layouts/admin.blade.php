@@ -40,7 +40,7 @@
                                 <div class="left__text">
                                     <a class="left__link" href="{{route('post.create')}}">Thêm Bài Viết</a>
                                     <a class="left__link" href="{{route('post.index')}}">Xem Bài Viết</a>
-                                    <a class="left__link" href="{{route('post.viewRestore')}}">Bài Đã Viết</a>
+                                    <a class="left__link" href="{{route('post.viewRestore')}}">Bài Đã Xóa</a>
                                 </div>
                             </li>
                             <li class="left__menuItem custom">

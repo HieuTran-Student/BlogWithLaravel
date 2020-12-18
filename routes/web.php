@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\PostController;
+use App\Http\Controllers\user\UserController;
 use App\Models\Post;
 
 #region Default
@@ -102,8 +103,22 @@ Route::resource('admin/post', PostController::class);
 
 #region Guest
 Route::group(['prefix' => 'user'], function () {
-    Route::get('/rediect', function ($id) {
+    // Đăng nhập user
 
-    });
+    Route::get('login', [UserController::class, 'login'])->name('user.getLogin');
+    Route::post('login', [UserController::class, 'submitLogin'])->name('user.postLogin');
+    // Đăung ký user
+    Route::get('signup', [UserController::class, 'signUp'])->name('user.getSignUp');
+    Route::post('signup', [UserController::class, 'submitSignUp'])->name('user.postSignUp');
+
+    Route::get('logout', [UserController::class, 'logout'])->name('user.logout');
 });
+
+Route::group(['prefix' => 'user', 'middleware' => 'CheckUserLogin'], function () {
+    Route::get('/home', [UserController::class, 'homePage'])->name('user.homePage');
+});
+#endregion
+
+#region User
+Route::resource('user', UserController::class);
 #endregion

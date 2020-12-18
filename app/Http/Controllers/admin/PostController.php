@@ -62,7 +62,6 @@ class PostController extends Controller
     public function index()
     {
         // query vjp pro (posts - categories - posts_categories)
-
         $data = $this->queryPost();
         return View('admin.post.index', [
             'lstPost' => $data,
@@ -98,7 +97,6 @@ class PostController extends Controller
             'post_image' => 'required'
         ]);
 
-
         if ($request->hasFile('post_image')) {
             $image = $request->file('post_image');
             $reImage = time() . '.' . $image->getClientOriginalExtension();
@@ -110,6 +108,7 @@ class PostController extends Controller
             $post->title = $request->title;
             $post->image = $reImage;
             $post->user_id = Auth::user()->id;
+            return dd($post->user_id);
             $post->save();
 
             // Post_category Table
@@ -147,7 +146,6 @@ class PostController extends Controller
         // return var_dump($post_Edit->image);
         // Truy vấn 1 hàng post_category của Post vừa chọn
         $Post_cat = post_category::where('cat_id', $post_Edit->cat_id)->where('post_id', $post_Edit->id)->first();
-
         // Truy vấn bảng Category
         $cat = Category::where('status', true)->get();
 
@@ -302,7 +300,6 @@ class PostController extends Controller
     {
         // Lấy post theo id
         $post = Post::where('status', true)->where('id', $id)->first();
-
         $author_id = $post->user_id;
         // lấy tác giả
         $author = User::where('status', -1)
@@ -310,12 +307,9 @@ class PostController extends Controller
             ->where('id', $author_id)
             ->first();
         // lấy nội dung của post
-
         $post_desc = post_description::where('post_id', $id)->first();
         if (!isset($post_desc))
             return var_dump($post_desc);
-
-
         //lấy mô tả
         $post_shortDesc = post_short_description::where('post_id', $id)->first();
         // format thời gian

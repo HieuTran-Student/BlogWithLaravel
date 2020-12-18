@@ -1,11 +1,145 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\user;
 
+use App\Http\Controllers\Controller;
+use App\Models\Post;
+use App\Models\post_short_description;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\admin\PostController;
+use Facade\FlareClient\View;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+    }
+
+    public function queryPost()
+    {
+        $data = DB::table('posts')
+            //Category
+            ->join('post_categories', 'posts.id', '=', 'post_categories.post_id')
+            ->join('categories', 'categories.id', '=', 'post_categories.cat_id')
+            //Description - Short Description
+            ->join('post_short_descriptions', 'post_short_descriptions.post_id', '=', 'posts.id')
+            ->join('post_descriptions', 'post_descriptions.post_id', '=', 'posts.id')
+            //User
+            ->join('users', 'users.id', '=', 'posts.user_id')
+            // post status = 1
+            ->where('posts.status', '=', '1')
+            // post_id, post_title, post_image, postPublishTime, shortDesc, desc, catTitle, catId
+            ->select(
+
+                'posts.title as postTitle',
+                'posts.id',
+                'posts.image as postImage',
+                'posts.created_at as publishTime',
+                'users.name as author',
+                'post_short_descriptions.short_description as shortDesc',
+                'post_descriptions.descriptions as desc',
+                'categories.title as catTitle',
+                'categories.id as catId'
+            );
+
+        return $data;
+    }
+
+    #region Login
+    public function login()
+    {
+        if (Auth::check()) {
+            return Auth::logout();
+        } else {
+            return View('user.login');
+        }
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return view('user.login');
+    }
+
+    public function submitLogin(Request $request)
+    {
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+
+        $userCheck = [
+            'email' => $request->email,
+            'password' => $request->password
+        ];
+
+        if (Auth::attempt($userCheck)) {
+            return  redirect('user/home');
+        } else {
+            return redirect()->back()->with('error', 'Email hoặc Password không chính xác');
+        }
+    }
+    #endregion
+
+    #region Sign Up
+    public function signUp()
+    {
+        return view('user.signup');
+    }
+
+    public function submitSignUp(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'confirmPassword' => 'required'
+        ]);
+
+        $allUser = User::all();
+        if ($allUser->where('email', $request->email)->first() != null) {
+            return redirect()->back()->with('error', 'email đã được sử dụng');
+        }
+
+        // Nếu 2 chuỗi khớp nhau
+        if (strcmp($request->password, $request->confirmPassword) == 0) {
+            $user = new User;
+
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::Make($request->password);
+            $user->save();
+
+            return View('user.homePage', [
+                'userName' => $user->name,
+                'email' => $user->email,
+                'title' => 'Trang chủ'
+            ]);
+        } else {
+            return redirect()->back()->with('error', 'Mật khẩu không trùng khớp');
+        }
+    }
+    #endregion
+
+    public function homePage()
+    {
+        // $post = Post::where('status', true)->paginate(2);
+        // lấy tất cả các post
+        // $post = $this->queryPost()->paginate(10);
+        $post = $this->queryPost()->paginate();;
+        return view('user.homePage', [
+            'userName' => Auth::user()->name,
+            'email' => Auth::user()->email,
+            'post' => $post,
+            'title' => 'Trang Chủ',
+            // 'allPosts' => $allPosts
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +147,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -45,7 +178,11 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $postData = $this->queryPost()->where('posts.id', $id)->get();
+        return View('user.post', [
+            'postData' => $postData,
+            'title' => $postData[0]->postTitle
+        ]);
     }
 
     /**

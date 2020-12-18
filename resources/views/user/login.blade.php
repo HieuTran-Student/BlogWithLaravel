@@ -25,7 +25,7 @@
 			<div class="card-header">
 				<h3>Đăng nhập</h3>
 				<div class="d-flex justify-content-end social_icon">
-					<span><i class="fab fa-facebook-square"></i></span>
+					<span><i class="fab fa-facebook-square"><a href="#"></a></i></span>
 					<span><i class="fab fa-google-plus-square"></i></span>
 					<span><i class="fab fa-twitter-square"></i></span>
 				</div>
@@ -36,7 +36,7 @@
             @if (Session::has('error'))
 			    <p class="text-danger"> {{session('error')}} </p>
             @endif
-            
+
             <form method="POST" action="{{route('user.postLogin')}}" >
                 @csrf
 					<div class="input-group form-group">
@@ -67,7 +67,8 @@
 				<div class="d-flex justify-content-center">
 					<a href="#">Quên mật khẩu</a>
 				</div>
-			</div>
+            </div>
+
 		</div>
 	</div>
 </div>

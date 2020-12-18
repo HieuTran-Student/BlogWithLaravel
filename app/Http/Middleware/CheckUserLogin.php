@@ -18,17 +18,22 @@ class CheckUserLogin
     public function handle(Request $request, Closure $next)
     {
         // nếu user đã đăng nhập
+        // if (Auth::check()) {
+        //     $user = Auth::user();
+        //     // nếu level =1 (admin), status = 1 (actived) thì cho qua.
+        //     if ($user->status == 1) {
+        //         return $next($request);
+        //     } else {
+        //         Auth::logout();
+        //         return response()->view('user.login');
+        //     }
+        // } else {
+        //     return view('user.login');
+        // }
         if (Auth::check()) {
-            $user = Auth::user();
-            // nếu level =1 (admin), status = 1 (actived) thì cho qua.
-            if ($user->status == 1) {
-                return $next($request);
-            } else {
-                Auth::logout();
-                return response()->view('user.login');
-            }
+            return $next($request);
         } else {
-            return view('user.login');
+            return response()->redirectTo('user/login ');
         }
     }
 }

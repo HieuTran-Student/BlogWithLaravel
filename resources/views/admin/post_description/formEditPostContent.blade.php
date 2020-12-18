@@ -280,7 +280,7 @@
                     </button>
                     </div>
                     <div class="btn-block" >
-                        <button style="width: 500px; height: 75px; font-size: 20px; margin-left:70px"  type="submit">Thêm</button>
+                        <button style="width: 500px; height: 75px; font-size: 20px; margin-left:70px"  type="submit">Sửa</button>
                         </div>
                 </div>
 
