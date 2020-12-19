@@ -2812,7 +2812,7 @@ input.btn-block[type="button"] {
 .dropdown-menu {
     position: absolute;
     top: 100%;
-    left: -70%%;
+    left: -70%;
     z-index: 1000;
     display: none;
     float: left;
@@ -3709,7 +3709,7 @@ input.btn-block[type="button"] {
 .customSVG svg {
     width: 50px;
 }
-.customSVG  {
+.customSVG {
     justify-content: center;
 }
 .nav-link.disabled {
@@ -9291,7 +9291,6 @@ body {
     font-size: 50px;
 }
 .custom-title {
-
     width: 100%;
     height: auto;
 }
@@ -9374,4 +9373,3 @@ body {
 .customa {
     text-decoration: none;
 }
-

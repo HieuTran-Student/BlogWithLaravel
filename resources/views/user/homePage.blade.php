@@ -1,7 +1,11 @@
-@extends('layouts.mainPage')
+ @extends('layouts.mainPage')
 @section('title', $title)
 {{-- title TRang chu --}}
-@section('content')
+@section('navbar')
+
+@endsection
+
+@section('post')
 <div class="row tm-row" id="myUL">
     @foreach ($post as $item)
         <article class="col-12 col-md-6 tm-post">
@@ -11,7 +15,7 @@
                 <div class="tm-post-link-inner">
                     <img src="{{asset('user/blog/img/img-01.jpg')}}" alt="Image" class="img-fluid">
                 </div>
-                <span class="position-absolute tm-new-badge">New hoặc ko có (chưa l)</span>
+                <span class="position-absolute tm-new-badge">New</span>
                 <h2 class="tm-pt-30 tm-color-primary tm-post-title">{{$item->postTitle}} </h2>
             </a>
             <p class="tm-pt-30">
@@ -28,10 +32,10 @@
             </div>
         </article>
     @endforeach
+    <div class="row tm-row tm-mt-100 tm-mb-75 customSVG">
+        {{ $post->links() }}
+    </div>
 </div>
+       {{-- pagination --}}
 
-{{-- pagination --}}
-<div class="row tm-row tm-mt-100 tm-mb-75 customSVG">
-    {{ $post->links() }}
-</div>
 @endsection

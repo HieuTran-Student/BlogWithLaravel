@@ -121,6 +121,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'CheckUserLogin'], function ()
 #endregion
 
 #region User
+Route::get('/', [UserController::class, 'homePageGuest'])->name('user.homePageGuest');
 Route::get('user/postWithCategory/{id}', [UserController::class, 'postWithCategory']);
 Route::resource('user', UserController::class);
 #endregion

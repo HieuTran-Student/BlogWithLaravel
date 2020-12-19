@@ -94,7 +94,8 @@ class UserController extends Controller
     public function logout()
     {
         Auth::logout();
-        return view('user.login');
+        //return view('user.login');
+        return redirect('/');
     }
 
     public function submitLogin(Request $request)
@@ -161,22 +162,32 @@ class UserController extends Controller
     public function homePageGuest()
     {
         $post = $this->queryPost()->paginate(4);
-        return view('home', [
+
+        return view('user.homePage', [
             'post' => $post,
-            'title' => 'Trang Chủ',
+            'title' => 'Trang Chủ Guest'
         ]);
     }
 
     public function homePage()
     {
         $post = $this->queryPost()->paginate(4);
-        return view('user.homePage', [
-            'userName' => Auth::user()->name,
-            'email' => Auth::user()->email,
-            'post' => $post,
-            'title' => 'Trang Chủ',
-            // 'allPosts' => $allPosts
-        ]);
+        if (Auth::check()) {
+            return view('user.homePage', [
+                'userName' => Auth::user()->name,
+                'email' => Auth::user()->email,
+                'post' => $post,
+                'title' => 'Trang Chủ User '
+                // 'allPosts' => $allPosts
+            ]);
+        } else {
+            return view('user.homePage', [
+                'userName' => Auth::user()->name,
+                'post' => $post,
+                'title' => 'Trang Chủ User '
+                // 'allPosts' => $allPosts
+            ]);
+        }
     }
 
     public function postWithCategory($id)
@@ -187,10 +198,18 @@ class UserController extends Controller
 
         $title = Category::where('id', $id)->first();
         $title = $title->title;
-        return view('user.postWithCategory', [
-            'postWithCategory' => $queryPost,
-            'title' => $title
-        ]);
+        if (Auth::check()) {
+            return view('user.postWithCategory', [
+                'postWithCategory' => $queryPost,
+                'userName' => Auth::user()->name,
+                'title' => $title
+            ]);
+        } else {
+            return view('user.postWithCategory', [
+                'postWithCategory' => $queryPost,
+                'title' => $title
+            ]);
+        }
     }
 
     /**
@@ -246,12 +265,23 @@ class UserController extends Controller
         // Truy vấn Category
         $cat = Category::where('status', true)->get();
 
-        return View('user.post', [
-            'postData' => $postData,
-            'cat' => $cat,
-            'relatePost' => $relatePost,
-            'title' => $postData[0]->postTitle
-        ]);
+        if (Auth::check()) {
+            return View('user.post', [
+                'postData' => $postData,
+                'userName' => Auth::user()->name,
+                'cat' => $cat,
+                'relatePost' => $relatePost,
+                'title' => $postData[0]->postTitle
+            ]);
+        } else {
+            return View('user.post', [
+                'postData' => $postData,
+
+                'cat' => $cat,
+                'relatePost' => $relatePost,
+                'title' => $postData[0]->postTitle
+            ]);
+        }
     }
 
     /**
