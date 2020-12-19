@@ -2812,7 +2812,7 @@ input.btn-block[type="button"] {
 .dropdown-menu {
     position: absolute;
     top: 100%;
-    left: 0;
+    left: -70%%;
     z-index: 1000;
     display: none;
     float: left;

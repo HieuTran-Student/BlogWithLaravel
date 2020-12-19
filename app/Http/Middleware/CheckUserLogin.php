@@ -30,10 +30,16 @@ class CheckUserLogin
         // } else {
         //     return view('user.login');
         // }
+        //return $next($request);
         if (Auth::check()) {
-            return $next($request);
+            // nếu level =1 (admin), status = 1 (actived) thì cho qua.
+            if (Auth::user()->status == 1) {
+                return $next($request);
+            } else {
+                return redirect()->route('user.getLogin');
+            }
         } else {
-            return response()->redirectTo('user/login ');
+            return redirect('user/login');
         }
     }
 }

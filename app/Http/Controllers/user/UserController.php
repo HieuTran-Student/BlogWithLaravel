@@ -10,15 +10,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\admin\PostController;
+use App\Models\Category;
 use Facade\FlareClient\View;
 use Illuminate\Support\Facades\DB;
+
 
 class UserController extends Controller
 {
     public function __construct()
     {
     }
-
     public function queryPost()
     {
         $data = DB::table('posts')
@@ -48,6 +49,37 @@ class UserController extends Controller
 
         return $data;
     }
+    public function queryPostCategory($id)
+    {
+        $data = DB::table('posts')
+            //Category
+            ->join('post_categories', 'posts.id', '=', 'post_categories.post_id')
+            ->join('categories', 'categories.id', '=', 'post_categories.cat_id')
+            //Description - Short Description
+            ->join('post_short_descriptions', 'post_short_descriptions.post_id', '=', 'posts.id')
+            ->join('post_descriptions', 'post_descriptions.post_id', '=', 'posts.id')
+            //User
+            ->join('users', 'users.id', '=', 'posts.user_id')
+            // post status = 1
+            ->where('posts.status', '=', '1')
+            ->where('categories.id', '=', $id)
+            // post_id, post_title, post_image, postPublishTime, shortDesc, desc, catTitle, catId
+            ->select(
+
+                'posts.title as postTitle',
+                'posts.id',
+                'posts.image as postImage',
+                'posts.created_at as publishTime',
+                'users.name as author',
+                'post_short_descriptions.short_description as shortDesc',
+                'post_descriptions.descriptions as desc',
+                'categories.title as catTitle',
+                'categories.id as catId'
+            );
+
+        return $data;
+    }
+
 
     #region Login
     public function login()
@@ -114,29 +146,50 @@ class UserController extends Controller
             $user->password = Hash::Make($request->password);
             $user->save();
 
-            return View('user.homePage', [
-                'userName' => $user->name,
-                'email' => $user->email,
-                'title' => 'Trang chủ'
-            ]);
+            // return View('user.homePage', [
+            //     'userName' => $user->name,
+            //     'email' => $user->email,
+            //     'title' => 'Trang chủ'
+            // ]);
+            return redirect('user/home');
         } else {
             return redirect()->back()->with('error', 'Mật khẩu không trùng khớp');
         }
     }
     #endregion
 
+    public function homePageGuest()
+    {
+        $post = $this->queryPost()->paginate(4);
+        return view('home', [
+            'post' => $post,
+            'title' => 'Trang Chủ',
+        ]);
+    }
+
     public function homePage()
     {
-        // $post = Post::where('status', true)->paginate(2);
-        // lấy tất cả các post
-        // $post = $this->queryPost()->paginate(10);
-        $post = $this->queryPost()->paginate();;
+        $post = $this->queryPost()->paginate(4);
         return view('user.homePage', [
             'userName' => Auth::user()->name,
             'email' => Auth::user()->email,
             'post' => $post,
             'title' => 'Trang Chủ',
             // 'allPosts' => $allPosts
+        ]);
+    }
+
+    public function postWithCategory($id)
+    {
+        $queryPost = $this->queryPostCategory($id)->paginate(4);
+
+        // Truy vấn Post liên quan theo Category
+
+        $title = Category::where('id', $id)->first();
+        $title = $title->title;
+        return view('user.postWithCategory', [
+            'postWithCategory' => $queryPost,
+            'title' => $title
         ]);
     }
 
@@ -178,9 +231,25 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        // Truy vấn post có category
+
+        $queryPost = $this->queryPost();
+
+        // Truy vấn post theo Id
         $postData = $this->queryPost()->where('posts.id', $id)->get();
+
+        // Truy vấn Post liên quan theo Category
+        $relatePost = $queryPost->where('cat_id', $postData[0]->catId)
+            ->where('posts.id', '!=', $id)
+            ->get();
+
+        // Truy vấn Category
+        $cat = Category::where('status', true)->get();
+
         return View('user.post', [
             'postData' => $postData,
+            'cat' => $cat,
+            'relatePost' => $relatePost,
             'title' => $postData[0]->postTitle
         ]);
     }

@@ -11,7 +11,9 @@
             Your browser does not support the video tag.
         </video> --}}
         <div class="custom-title">
+
             <h2 class="pt-2 tm-color-primary tm-post-title title-custom">{{$postData[0]->postTitle}}</h2>
+            <img src="{{asset('img/'.$postData[0]->postImage)}}" alt="">
         </div>
 
     </div>
@@ -20,7 +22,7 @@
     <div class="col-lg-8 tm-post-col">
         <div class="tm-post-full">
             <div class="mb-4">
-                <p class="tm-mb-40">June 16, 2020 posted by Admin Nat</p>
+                <p class="tm-mb-40">{{$postData[0]->publishTime}} posted by {{$postData[0]->author}}</p>
                 {!!$postData[0]->desc!!}
                 <span class="d-block text-right tm-color-primary">{{$postData[0]->catTitle}}</span>
             </div>
@@ -83,35 +85,29 @@
     <aside class="col-lg-4 tm-aside-col">
         <div class="tm-post-sidebar">
             <hr class="mb-3 tm-hr-primary">
-            <h2 class="mb-4 tm-post-title tm-color-primary">Categories</h2>
+            <h2 class="mb-4 tm-post-title tm-color-primary">Thể Loại</h2>
             <ul class="tm-mb-75 pl-5 tm-category-list">
-                <li><a href="#" class="tm-color-primary">Visual Designs</a></li>
-                <li><a href="#" class="tm-color-primary">Travel Events</a></li>
-                <li><a href="#" class="tm-color-primary">Web Development</a></li>
-                <li><a href="#" class="tm-color-primary">Video and Audio</a></li>
-                <li><a href="#" class="tm-color-primary">Etiam auctor ac arcu</a></li>
-                <li><a href="#" class="tm-color-primary">Sed im justo diam</a></li>
+                @foreach ($cat as $item)
+                <li>
+                    <a style="text-decoration: none;" href="{{url('user/postWithCategory/'. $item->id)}}" class="tm-color-primary">
+                        <img style="width: 30px; height: 30px; margin-right:4%"
+                        src="{{asset('img/'. $item->image)}}" alt="">
+                        {{$item->title}}
+                    </a>
+                </li>
+                @endforeach
             </ul>
             <hr class="mb-3 tm-hr-primary">
-            <h2 class="tm-mb-40 tm-post-title tm-color-primary">Related Posts</h2>
-            <a href="#" class="d-block tm-mb-40">
+            <h2 class="tm-mb-40 tm-post-title tm-color-primary">Bài viết liên quan</h2>
+            @foreach ($relatePost as $item)
+            <a href="{{url('user/'. $item->id)}}" class="d-block tm-mb-40">
                 <figure>
-                    <img src="img/img-02.jpg" alt="Image" class="mb-3 img-fluid">
-                    <figcaption class="tm-color-primary">Duis mollis diam nec ex viverra scelerisque a sit</figcaption>
+                    <img src="{{asset('img/'.$item->postImage)}}" alt="Post Image" class="mb-3 img-fluid">
+                    <figcaption class="tm-color-primary">{{$item->postTitle}}</figcaption>
                 </figure>
             </a>
-            <a href="#" class="d-block tm-mb-40">
-                <figure>
-                    <img src="img/img-05.jpg" alt="Image" class="mb-3 img-fluid">
-                    <figcaption class="tm-color-primary">Integer quis lectus eget justo ullamcorper ullamcorper</figcaption>
-                </figure>
-            </a>
-            <a href="#" class="d-block tm-mb-40">
-                <figure>
-                    <img src="img/img-06.jpg" alt="Image" class="mb-3 img-fluid">
-                    <figcaption class="tm-color-primary">Nam lobortis nunc sed faucibus commodo</figcaption>
-                </figure>
-            </a>
+            @endforeach
+
         </div>
     </aside>
 </div>

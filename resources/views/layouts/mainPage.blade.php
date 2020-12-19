@@ -14,8 +14,49 @@
 
     <!-- Theme CSS -->
     <link id="theme-style" rel="stylesheet" href="{{asset('user/blog/assets/css/theme-1.css')}}">
+    <style>
+        .custom-navbar {
+            margin-left: 18%;
+
+        }
+        .show {
+            left:-60; !important
+        }
+        .justify-content-start {
+            background: #0cc;
+        }
+   </style>
 </head>
 <body>
+    <nav class="navbar navbar-expand-xl navbar-dark bg-dark custom-navbar">
+        <a href="#" class="navbar-brand"><i class="fa fa-cube"></i>Hieu's<b>Blog</b></a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Collection of nav links, forms, and other content for toggling -->
+        <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
+
+            <div class="navbar-nav ml-auto">
+                {{-- <a href="#" class="nav-item nav-link active"><i class="fa fa-home"></i><span>Home</span></a>
+                <a href="#" class="nav-item nav-link"><i class="fa fa-gears"></i><span>Projects</span></a>
+                <a href="#" class="nav-item nav-link"><i class="fa fa-users"></i><span>Team</span></a>
+                <a href="#" class="nav-item nav-link"><i class="fa fa-pie-chart"></i><span>Reports</span></a>
+                <a href="#" class="nav-item nav-link"><i class="fa fa-briefcase"></i><span>Careers</span></a>
+                <a href="#" class="nav-item nav-link"><i class="fa fa-envelope"></i><span>Messages</span></a>
+                <a href="#" class="nav-item nav-link"><i class="fa fa-bell"></i><span>Notifications</span></a> --}}
+                <div class="nav-item dropdown ">
+                    <a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle user-action " style="color: #fff;"><img src="{{asset('img/User-img.png')}} " style="width: 30px; height: 30px;" class="avatar" alt="Avatar"> {{$userName}}<b class="caret"></b></a>
+                    <div class="dropdown-menu ">
+                        <a href="#" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a>
+                        <a href="#" class="dropdown-item"><i class="fa fa-calendar-o"></i> Calendar</a>
+                        <a href="#" class="dropdown-item"><i class="fa fa-sliders"></i> Settings</a>
+                        <div class="divider dropdown-divider"></div>
+                        <a href="{{route('user.logout')}}" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
     <header class="header text-center">
 	    <h1 class="blog-name pt-lg-4 mb-0"><a href="index.html">Hiếu</a></h1>
 
@@ -46,12 +87,13 @@
 				</div>
 
 				<ul class="navbar-nav flex-column text-left">
-					<li class="nav-item active">
+					<li class="nav-item ">
 					    <a class="nav-link" href="{{route('user.homePage')}}"><i class="fas fa-home fa-fw mr-2"></i>Blog Home <span class="sr-only"></span></a>
 					</li>
 					<li class="nav-item">
 					    <a  style="  text-decoration: none;" class="nav-link" href="about.html"><i class="fas fa-user fa-fw mr-2"></i>About Me</a>
-					</li>
+                    </li>
+
 				</ul>
 				{{-- <div class="my-2 my-md-3">
 				    <a class="btn btn-primary" href="https://themes.3rdwavemedia.com/" target="_blank">Get in Touch</a>

@@ -117,8 +117,13 @@ Route::group(['prefix' => 'user'], function () {
 Route::group(['prefix' => 'user', 'middleware' => 'CheckUserLogin'], function () {
     Route::get('/home', [UserController::class, 'homePage'])->name('user.homePage');
 });
+
 #endregion
 
 #region User
+Route::get('user/postWithCategory/{id}', [UserController::class, 'postWithCategory']);
 Route::resource('user', UserController::class);
 #endregion
+
+Route::get('/login-facebook', [UserController::class, 'login_facebook']);
+Route::get('/admin/callback', [UserController::class, 'callback_facebook']);
