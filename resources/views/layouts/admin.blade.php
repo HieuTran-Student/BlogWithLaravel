@@ -40,7 +40,7 @@
                                 <div class="left__text">
                                     <a class="left__link" href="{{route('post.create')}}">Thêm Bài Viết</a>
                                     <a class="left__link" href="{{route('post.index')}}">Xem Bài Viết</a>
-                                    <a class="left__link" href="{{route('post.viewRestore')}}">Bài Đã Xóa</a>
+                                    <a class="left__link" href="{{url('admin/posts/viewRestore')}}">Bài Đã Xóa</a>
                                 </div>
                             </li>
                             <li class="left__menuItem custom">
@@ -51,41 +51,11 @@
                                     <a class="left__link" href="{{route('category.viewRestore')}}">Thể Loại Đã Xóa</a>
                                 </div>
                             </li>
-                            <li class="left__menuItem">
-                                <div class="left__title"><img src="{{asset('admin/dashboard_admin')}}/assets/icon-tag.svg" alt="">Danh Mục SP<img class="left__iconDown" src="{{asset('admin/dashboard_admin')}}/assets/arrow-down.svg" alt=""></div>
-                                <div class="left__text">
-                                <a class="left__link" href="">Chèn Danh Mục</a>
-                                    <a class="left__link" href="view_p_category.html">Xem Danh Mục</a>
-                                </div>
-                            </li>
-                            <li class="left__menuItem">
-                                <div class="left__title"><img src="{{asset('admin/dashboard_admin')}}/assets/icon-settings.svg" alt="">Slide<img class="left__iconDown" src="{{asset('admin/dashboard_admin')}}/assets/arrow-down.svg" alt=""></div>
-                                <div class="left__text">
-                                    <a class="left__link" href="insert_slide.html">Chèn Slide</a>
-                                    <a class="left__link" href="view_slides.html">Xem Slide</a>
-                                </div>
-                            </li>
-                            <li class="left__menuItem">
-                                <div class="left__title"><img src="{{asset('admin/dashboard_admin')}}/assets/icon-book.svg" alt="">Coupons<img class="left__iconDown" src="{{asset('admin/dashboard_admin')}}/assets/arrow-down.svg" alt=""></div>
-                                <div class="left__text">
-                                    <a class="left__link" href="insert_coupon.html">Chèn Coupon</a>
-                                    <a class="left__link" href="view_coupons.html">Xem Coupons</a>
-                                </div>
-                            </li>
-                            <li class="left__menuItem">
-                                <a href="view_customers.html" class="left__title"><img src="{{asset('admin/dashboard_admin')}}/assets/icon-users.svg" alt="">Khách Hàng</a>
-                            </li>
-                            <li class="left__menuItem">
-                                <a href="view_orders.html" class="left__title"><img src="{{asset('admin/dashboard_admin')}}/assets/icon-book.svg" alt="">Đơn Đặt Hàng</a>
-                            </li>
-                            <li class="left__menuItem">
-                                <a href="edit_css.html" class="left__title"><img src="{{asset('admin/dashboard_admin')}}/assets/icon-pencil.svg" alt="">Chỉnh CSS</a>
-                            </li>
-                            <li class="left__menuItem">
-                                <div class="left__title"><img src="{{asset('admin/dashboard_admin')}}/assets/icon-user.svg" alt="">Admin<img class="left__iconDown" src="{{asset('admin/dashboard_admin')}}/assets/arrow-down.svg" alt=""></div>
-                                <div class="left__text">
-                                    <a class="left__link" href="insert_admin.html">Chèn Admin</a>
-                                    <a class="left__link" href="view_admins.html">Xem Admins</a>
+                            <li class="left__menuItem custom1 ">
+                                <div class="left__title"><img src="{{asset('admin/dashboard_admin')}}/assets/icon-tag.svg" alt="">Thành Viên<img class="left__iconDown" src="{{asset('admin/dashboard_admin')}}/assets/arrow-down.svg" alt=""></div>
+                                <div class="left__text custom-admin">
+                                    <a class="left__link" href="{{route('admin.member.index')}}">Xem thành viên </a>
+                                    <a class="left__link" href="{{route('admin.member.viewDeleteMember')}}">Khôi phục thành viên</a>
                                 </div>
                             </li>
                             <li class="left__menuItem">

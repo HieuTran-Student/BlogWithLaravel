@@ -89,7 +89,7 @@ class CategoryController extends Controller
         return View('admin.category.update', [
             'lstCategoriesEdit' => $data,
             'title' => 'Sửa thể loại'
-        ]);
+        ])->with('message', 'Đã xóa thành viên: ' . $data->title);;
     }
 
     /**
@@ -134,7 +134,7 @@ class CategoryController extends Controller
         $category =  Category::where('id', $id)->first();
         $category->status = false;
         $category->save();
-        return redirect('admin/category');
+        return redirect('admin/category')->with('message', 'Đã xóa thể loại: ' . $category->title);
     }
 
     /**
@@ -163,6 +163,6 @@ class CategoryController extends Controller
         $restore = Category::where('id', $id)->first();
         $restore->status = true;
         $restore->save();
-        return redirect('admin/category');
+        return redirect('admin/category')->with('message', 'Đã khôi phục thể loại: ' . $restore->title);
     }
 }

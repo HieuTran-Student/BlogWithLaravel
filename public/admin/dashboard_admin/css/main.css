@@ -256,11 +256,18 @@ body {
     height: 108px;
     padding-top: 10px;
 }
+.left__menuItem.custom1.open .left__text {
+    height: 90px;
+    padding-top: 10px;
+}
 
 .left__menuItem.open .left__iconDown {
     transform: rotate(180deg);
 }
 
+.custom-admin {
+    height: 70px;
+}
 .left__title {
     padding: 10px;
     font-size: 16px;

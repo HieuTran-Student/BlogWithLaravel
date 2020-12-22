@@ -4,6 +4,7 @@
 @section('content')
 
     <div class="right">
+
         <div class="right__content">
             <div class="right__title">Bảng điều khiển</div>
             <p class="right__desc">Thêm thể loại</p>

@@ -23,8 +23,12 @@
             </div>
             <hr>
             <div class="d-flex justify-content-between">
-                <span>0 comments</span>
-                <span>{{$item->author}}</span>
+                <p>
+                   Bình luận:  <span class="fb-comments-count" data-href="http://127.0.0.1:8000/user/. {{$item->id}}"></span>
+                </p>
+                <script async defer crossorigin="anonymous"
+                src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v9.0&appId=3550241328394741  " nonce="YJi4JYUu"></script>
+                <span>Tác giả: {{$item->author}}</span>
             </div>
         </article>
     @endforeach

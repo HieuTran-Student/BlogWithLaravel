@@ -9,8 +9,10 @@
     <style>
         html,
         body {
+         justify-content: 
             min-height: 100%;
         }
+
 
         body,
         div,

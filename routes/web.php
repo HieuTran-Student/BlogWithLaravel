@@ -1,16 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\PostController;
 use App\Http\Controllers\user\UserController;
-use App\Models\Post;
-
-#region Default
-Route::get('/', [HomeController::class, 'home']);
-#endregion
 
 #region Admin
 
@@ -22,6 +16,7 @@ Route::group(['prefix' => 'admin'], function () {
 });
 #endregion
 
+// Dashboard
 Route::group(['prefix' => 'admin', 'middleware' => 'CheckAdminLogin'], function () {
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 });
@@ -42,23 +37,25 @@ Route::group(['prefix' => 'admin/category', 'middleware' => 'CheckAdminLogin'], 
 });
 #endregion
 
-#region Resource Category
-// Route::group(['middleware' => 'CheckAdminLogin'], function () {
-Route::resource('admin/category', CategoryController::class);
-// });
+#region Resource Category, Post
+Route::group(['middleware' => 'CheckAdminLogin'], function () {
+    Route::resource('admin/category', CategoryController::class);
+    Route::resource('admin/post', PostController::class);
+});
 
 #endregion
 
+//Xem bài đã xóa
+Route::get('admin/posts/viewRestore', [
+    'middleware' => 'CheckAdminLogin',
+    PostController::class, 'viewRestore'
+])->name('post.viewRestore');
 
 #region Post Delete - View Restore - Restore - Create Description - Post Review - Update Description
 Route::group(['prefix' => 'admin/post', 'middleware' => 'CheckAdminLogin'], function () {
-    // Khôi phục bài viết đã xóa
-    Route::get('{id}/delete', [PostController::class, 'delete']);
 
-    Route::get('viewRestore', [
-        PostController::class,
-        'viewRestore'
-    ])->name('post.viewRestore');
+    Route::get('{id}/delete', [PostController::class, 'delete']);
+    // Khôi phục bài viết đã xóa lỗi ở cái này
 
     Route::get('{id}/restore', [
         PostController::class,
@@ -95,16 +92,21 @@ Route::group(['prefix' => 'admin/post', 'middleware' => 'CheckAdminLogin'], func
 });
 #endregion
 
-#region Resource Post
-Route::resource('admin/post', PostController::class);
+#region Member
+Route::group(['prefix' => 'admin/member', 'middleware' => 'CheckAdminLogin'], function () {
+    Route::get('index', [AdminController::class, 'viewMember'])->name('admin.member.index');
+    Route::get('deleteMember/{id}', [AdminController::class, 'deleteMember'])->name('admin.member.deleteMember');
+    Route::get('viewDeleteMember', [AdminController::class, 'viewDeleteMember'])->name('admin.member.viewDeleteMember');
+    Route::get('restoreMember/{id}', [AdminController::class, 'restoreMember'])->name('admin.member.restoreMember');
+});
 #endregion
+
 
 #endregion
 
 #region Guest
 Route::group(['prefix' => 'user'], function () {
     // Đăng nhập user
-
     Route::get('login', [UserController::class, 'login'])->name('user.getLogin');
     Route::post('login', [UserController::class, 'submitLogin'])->name('user.postLogin');
     // Đăung ký user
@@ -114,17 +116,14 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('logout', [UserController::class, 'logout'])->name('user.logout');
 });
 
+#region Resource User
+
+// User homePage
 Route::group(['prefix' => 'user', 'middleware' => 'CheckUserLogin'], function () {
     Route::get('/home', [UserController::class, 'homePage'])->name('user.homePage');
 });
 
-#endregion
-
-#region User
 Route::get('/', [UserController::class, 'homePageGuest'])->name('user.homePageGuest');
 Route::get('user/postWithCategory/{id}', [UserController::class, 'postWithCategory']);
 Route::resource('user', UserController::class);
 #endregion
-
-Route::get('/login-facebook', [UserController::class, 'login_facebook']);
-Route::get('/admin/callback', [UserController::class, 'callback_facebook']);

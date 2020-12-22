@@ -14,7 +14,11 @@
         <img style="margin-left: 3%" height="30px" width="30px"
         src="{{asset('admin/dashboard_admin/images/user.png')}}" alt=""> {{$author->name}}
         <img style="margin-left: 3%" height="30px" width="30px"
-        src="{{asset('admin/dashboard_admin/images/comment.png')}}" alt=""> chưa làm
+        src="{{asset('admin/dashboard_admin/images/comment.png')}}" alt="">
+        <span class="fb-comments-count" data-href="http://127.0.0.1:8000/user/. {{$post->id}}"></span>
+         <script async defer crossorigin="anonymous"
+         src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v9.0&appId=3550241328394741  " nonce="YJi4JYUu"></script>
+
     </p>
     <hr>
 

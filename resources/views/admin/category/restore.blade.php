@@ -6,8 +6,14 @@
     <div class="right__content">
         <div class="right__title">Bảng điều khiển</div>
         <p class="right__desc">Xem thể loại đã xóa</p>
+
+        @if (Session::has('message'))
+            <p class="text-success">{{session('message')}}</p>
+        @endif
+
         <div class="right__table">
             <div class="right__tableWrapper">
+
                 <table id="table">
                     <thead>
                         <tr>

@@ -63,6 +63,7 @@ class PostController extends Controller
     {
         // query vjp pro (posts - categories - posts_categories)
         $data = $this->queryPost();
+
         return View('admin.post.index', [
             'lstPost' => $data,
             'title' => 'Bài Viết',
@@ -108,7 +109,6 @@ class PostController extends Controller
             $post->title = $request->title;
             $post->image = $reImage;
             $post->user_id = Auth::user()->id;
-            return dd($post->user_id);
             $post->save();
 
             // Post_category Table
@@ -193,7 +193,7 @@ class PostController extends Controller
         $post_category->post_id = $post->id;
         $post_category->save();
 
-        return redirect('admin/post')->with('message', 'Thêm bài viết thành công');
+        return redirect('admin/post')->with('message', 'Sửa bài viết thành công');
     }
 
     /**
@@ -219,30 +219,20 @@ class PostController extends Controller
         $post->status = false;
         $post->save();
 
-        return redirect("admin/post");
+        return redirect("admin/post")->with('message', 'Đã xóa bài viết: ' . $post->title);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function viewRestore()
     {
         $post_Delete = $this->queryPostDelete();
-        return View('admin.post.Restore', [
+
+        return View('admin.post.restore', [
             'lstPost_Delete' => $post_Delete,
             'title' => 'Bài đã xóa'
         ]);
     }
 
-    /**
-     * Restore the specified resource.
-     *
 
-     * @return \Illuminate\Http\Response
-     */
     public function restore($id)
     {
         // Lấy ra 1 dòng của bảng Post theo id
@@ -309,7 +299,7 @@ class PostController extends Controller
         // lấy nội dung của post
         $post_desc = post_description::where('post_id', $id)->first();
         if (!isset($post_desc))
-            return var_dump($post_desc);
+            return redirect()->back()->with('message', 'Bài viết chưa có nội dung');
         //lấy mô tả
         $post_shortDesc = post_short_description::where('post_id', $id)->first();
         // format thời gian

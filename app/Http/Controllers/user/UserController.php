@@ -162,7 +162,9 @@ class UserController extends Controller
     public function homePageGuest()
     {
         $post = $this->queryPost()->paginate(4);
-
+        foreach ($post as $item => $value) {
+            $value->publishTime = date('d/m/Y', strtotime($value->publishTime));
+        }
         return view('user.homePage', [
             'post' => $post,
             'title' => 'Trang Chủ Guest'
@@ -172,6 +174,9 @@ class UserController extends Controller
     public function homePage()
     {
         $post = $this->queryPost()->paginate(4);
+        foreach ($post as $item => $value) {
+            $value->publishTime = date('d/m/Y', strtotime($value->publishTime));
+        }
         if (Auth::check()) {
             return view('user.homePage', [
                 'userName' => Auth::user()->name,
@@ -193,7 +198,9 @@ class UserController extends Controller
     public function postWithCategory($id)
     {
         $queryPost = $this->queryPostCategory($id)->paginate(4);
-
+        foreach ($queryPost as $item => $value) {
+            $value->publishTime = date('d/m/Y', strtotime($value->publishTime));
+        }
         // Truy vấn Post liên quan theo Category
 
         $title = Category::where('id', $id)->first();
@@ -256,7 +263,7 @@ class UserController extends Controller
 
         // Truy vấn post theo Id
         $postData = $this->queryPost()->where('posts.id', $id)->get();
-
+        $postData[0]->publishTime = date('d/m/Y', strtotime($postData[0]->publishTime));
         // Truy vấn Post liên quan theo Category
         $relatePost = $queryPost->where('cat_id', $postData[0]->catId)
             ->where('posts.id', '!=', $id)

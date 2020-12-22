@@ -31,7 +31,7 @@
 
     {{-- Left --}}
     <header class="header text-center">
-	    <h1 class="blog-name pt-lg-4 mb-0"><a href="index.html">Hiếu</a></h1>
+
 	    <nav class="navbar navbar-expand-lg navbar-dark" >
             <button class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navigation" aria-controls="navigation"
@@ -40,42 +40,61 @@
 			</button>
 
 			<div id="navigation" class="collapse navbar-collapse flex-column" >
-				<div class="profile-section pt-3 pt-lg-0">
-                    <img class="profile-image mb-3 rounded-circle mx-auto"
-                    src="{{asset('admin/dashboard_admin/images/1606099768.jpg')}}" alt="image" >
 
+
+				<ul class="navbar-nav flex-column text-left">
+					<li class="nav-item ">
+                        @if (isset($userName))
+                            <a style="text-decoration: none;" class="nav-link" href="{{route('user.homePage')}}">
+                                Blog Home
+                                <span class="sr-only"></span>
+                            </a>
+                        @else
+                            <a style="text-decoration: none;" class="nav-link" href="{{route('user.homePageGuest')}}">
+                                <i class="fas fa-home fa-fw mr-2"></i>
+                                Blog Home
+                                <span class="sr-only"></span>
+                            </a>
+                        @endif
+					</li>
+
+                </ul>
+
+                <div class="profile-section pt-3 pt-lg-0">
+
+                    <hr>
+                    <h1 class="blog-name pt-lg-4 mb-0">
+                        @if (isset($userName))
+                            <a href="{{route('user.homePage')}}">Hiếu</a>
+                        @else
+                            <a href="{{route('user.homePageGuest')}}">Hiếu</a>
+                        @endif
+                    </h1>
+                    <img class="profile-image mb-3 rounded-circle mx-auto"
+                    src="{{asset('admin/dashboard_admin/images/avatar.jpg')}}" alt="image" >
 					<div class="bio mb-3">Hi, my name is Tran Trong Hieu.<br>
-                        <a href="about.html">Find out more about me</a>
+                        <p >Find out more about me</p>
                     </div>
 
 					<ul class="social-list list-inline py-3 mx-auto">
 			            <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>
-			            <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in fa-fw"></i></a></li>
-			            <li class="list-inline-item"><a href="#"><i class="fab fa-github-alt fa-fw"></i></a></li>
-			            <li class="list-inline-item"><a href="#"><i class="fab fa-stack-overflow fa-fw"></i></a></li>
-			            <li class="list-inline-item"><a href="#"><i class="fab fa-codepen fa-fw"></i></a></li>
+                        <li class="list-inline-item">
+                            <a href="https://www.linkedin.com/in/hi%E1%BA%BFu-tr%E1%BA%A7n-tr%E1%BB%8Dng-83060a201/" target="_blank">
+                                <i class="fab fa-linkedin-in fa-fw"></i>
+                            </a>
+                        </li>
+			            <li class="list-inline-item"><a href="https://github.com/HieuTran-Student"  target="_blank"><i class="fab fa-github-alt fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="https://stackoverflow.com/users/13010465/hi%e1%ba%bfu-tr%e1%ba%a7n-tr%e1%bb%8dng"  target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="https://codepen.io/hiu-the-looper"  target="_blank"><i class="fab fa-codepen fa-fw"></i></a></li>
 			        </ul>
-			        <hr>
+
 				</div>
-
-				<ul class="navbar-nav flex-column text-left">
-					<li class="nav-item ">
-					    <a class="nav-link" href="{{route('user.homePage')}}"><i class="fas fa-home fa-fw mr-2"></i>Blog Home <span class="sr-only"></span></a>
-					</li>
-					<li class="nav-item">
-					    <a  style="  text-decoration: none;" class="nav-link" href="about.html"><i class="fas fa-user fa-fw mr-2"></i>About Me</a>
-                    </li>
-
-				</ul>
-				{{-- <div class="my-2 my-md-3">
-				    <a class="btn btn-primary" href="https://themes.3rdwavemedia.com/" target="_blank">Get in Touch</a>
-				</div> --}}
 			</div>
 		</nav>
     </header>
 
     {{-- Navbar USer --}}
-    <nav class="navbar navbar-expand-xl navbar-dark bg-dark custom-navbar">
+    <nav  style="padding: 22px" class="navbar navbar-expand-xl navbar-dark bg-dark custom-navbar">
         <a href="#" class="navbar-brand"><i class="fa fa-cube"></i>Hieu's<b>Blog</b></a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
@@ -84,13 +103,7 @@
         <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
 
             <div class="navbar-nav ml-auto">
-                {{-- <a href="#" class="nav-item nav-link active"><i class="fa fa-home"></i><span>Home</span></a>
-                <a href="#" class="nav-item nav-link"><i class="fa fa-gears"></i><span>Projects</span></a>
-                <a href="#" class="nav-item nav-link"><i class="fa fa-users"></i><span>Team</span></a>
-                <a href="#" class="nav-item nav-link"><i class="fa fa-pie-chart"></i><span>Reports</span></a>
-                <a href="#" class="nav-item nav-link"><i class="fa fa-briefcase"></i><span>Careers</span></a>
-                <a href="#" class="nav-item nav-link"><i class="fa fa-envelope"></i><span>Messages</span></a>
-                <a href="#" class="nav-item nav-link"><i class="fa fa-bell"></i><span>Notifications</span></a> --}}
+
                 <div class="nav-item dropdown ">
                     @if (isset($userName) )
                         <a href="#" data-toggle="dropdown"

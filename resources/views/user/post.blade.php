@@ -13,7 +13,7 @@
         <div class="custom-title">
 
             <h2 class="pt-2 tm-color-primary tm-post-title title-custom">{{$postData[0]->postTitle}}</h2>
-            <img src="{{asset('img/'.$postData[0]->postImage)}}" alt="">
+            <img style="width: 50%; height: 100%;" src="{{asset('img/'.$postData[0]->postImage)}}" alt="">
         </div>
 
     </div>
@@ -21,64 +21,26 @@
 <div class="row tm-row">
     <div class="col-lg-8 tm-post-col">
         <div class="tm-post-full">
-            <div class="mb-4">
-                <p class="tm-mb-40">{{$postData[0]->publishTime}} posted by {{$postData[0]->author}}</p>
+            <div class="mb-4" style="margin-top: 5%">
+                <p>
+                    <img height="30px" width="30px"
+                    src="{{asset('admin/dashboard_admin/images/clock.png')}}" alt=""> {{$postData[0]->publishTime}}
+                    <img style="margin-left: 3%" height="30px" width="30px"
+                    src="{{asset('admin/dashboard_admin/images/user.png')}}" alt=""> {{$postData[0]->author}}
+                    <img style="margin-left: 3%" height="30px" width="30px"
+                    src="{{asset('admin/dashboard_admin/images/comment.png')}}" alt=""> <span class="fb-comments-count" data-href="http://127.0.0.1:8000/user/. {{$postData[0]->id}}"></span>
+                </p>
                 {!!$postData[0]->desc!!}
                 <span class="d-block text-right tm-color-primary">{{$postData[0]->catTitle}}</span>
             </div>
 
             <!-- Comments -->
             <div>
-                <h2 class="tm-color-primary tm-post-title">Comments</h2>
-                <hr class="tm-hr-primary tm-mb-45 custom-hr">
-                <div class="tm-comment tm-mb-45">
-                    <figure class="tm-comment-figure">
-                        <img src="img/comment-1.jpg" alt="Image" class="mb-2 rounded-circle img-thumbnail">
-                        <figcaption class="tm-color-primary text-center">Mark Sonny</figcaption>
-                    </figure>
-                    <div>
-                        <p>
-                            Praesent aliquam ex vel lectus ornare tritique. Nunc et eros
-                            quis enim feugiat tincidunt et vitae dui. Nullam consectetur
-                            justo ac ex laoreet rhoncus. Nunc id leo pretium, faucibus
-                            sapien vel, euismod turpis.
-                        </p>
-                        <div class="d-flex justify-content-between">
-                            <a href="#" class="tm-color-primary">REPLY</a>
-                            <span class="tm-color-primary">June 14, 2020</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="tm-comment-reply tm-mb-45">
-                    <hr>
-                    <div class="tm-comment">
-                        <figure class="tm-comment-figure">
-                            <img src="img/comment-2.jpg" alt="Image" class="mb-2 rounded-circle img-thumbnail">
-                            <figcaption class="tm-color-primary text-center">Jewel Soft</figcaption>
-                        </figure>
-                        <p>
-                            Nunc et eros quis enim feugiat tincidunt et vitae dui.
-                            Nullam consectetur justo ac ex laoreet rhoncus. Nunc
-                            id leo pretium, faucibus sapien vel, euismod turpis.
-                        </p>
-                    </div>
-                    <span class="d-block text-right tm-color-primary">June 21, 2020</span>
-                </div>
-                <form action="" class="mb-5 tm-comment-form">
-                    <h2 class="tm-color-primary tm-post-title mb-4">Your comment</h2>
-                    <div class="mb-4">
-                        <input class="form-control" name="name" type="text">
-                    </div>
-                    <div class="mb-4">
-                        <input class="form-control" name="email" type="text">
-                    </div>
-                    <div class="mb-4">
-                        <textarea class="form-control" name="message" rows="6"></textarea>
-                    </div>
-                    <div class="text-right">
-                        <button class="tm-btn tm-btn-primary tm-btn-small">Submit</button>
-                    </div>
-                </form>
+
+                <div class="fb-comments" data-href="http://127.0.0.1:8000/user/. {{$postData[0]->id}}" data-width="10" data-numposts="10"></div>
+                <div id="fb-root"></div>
+                <script async defer crossorigin="anonymous"
+                src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v9.0&appId=3550241328394741  " nonce="YJi4JYUu"></script>
             </div>
         </div>
     </div>
@@ -88,7 +50,7 @@
             <h2 class="mb-4 tm-post-title tm-color-primary">Thể Loại</h2>
             <ul class="tm-mb-75 pl-5 tm-category-list">
                 @foreach ($cat as $item)
-                <li>
+                <li style="margin-bottom: 5%">
                     <a style="text-decoration: none;" href="{{url('user/postWithCategory/'. $item->id)}}" class="tm-color-primary">
                         <img style="width: 30px; height: 30px; margin-right:4%"
                         src="{{asset('img/'. $item->image)}}" alt="">

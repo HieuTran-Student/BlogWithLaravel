@@ -22,7 +22,6 @@
                         </tr>
                     </thead>
 
-                    {{-- Thay the bang modal --}}
                     @if (Session::has('message'))
                     <ul>
                         <li class="text-danger"> {{ session('message') }}</li>
