@@ -21,7 +21,7 @@
                             <th>Tên</th>
                             <th>Email</th>
                             <th>Ngày tạo</th>
-                            <th>Xoá</th>
+                            <th>Khôi phục</th>
                         </tr>
                     </thead>
 
@@ -32,7 +32,7 @@
                             <td data-label="Tên thể loại" width ="200px">{{$item->name}}</td>
                             <td data-label="Mô tả" width = "400px">{{$item->email}}</td>
                             <td data-label="Mô tả" width = "400px">{{$item->created_at}}</td>
-                            <td data-label="Xoá"  class="right__iconTable">
+                            <td data-label="Khôi phục"  class="right__iconTable">
                                 <a href="{{url('admin/member/restoreMember/'.$item->id)}}"
                                    onclick="return confirm('Khôi phục thành viên này ?')">
                                    <img src="{{asset('img')}}/restore.png" alt="">

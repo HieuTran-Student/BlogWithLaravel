@@ -26,9 +26,9 @@
                         <span></span>
                     </span>
                     <div class="left__content">
-                        <div class="left__logo">LOGO</div>
+                        <div class="left__logo" style="    margin-left: 37%;">LOGO</div>
                         <div class="left__profile">
-                            <div class="left__image"><img src="{{asset('admin/dashboard_admin')}}/images/1606099768.jpg" alt=""></div>
+                            <div class="left__image"><img src="{{asset('admin/dashboard_admin')}}/images/admin_512.png" alt=""></div>
                         <p class="left__name">admin</p>
                         </div>
                         <ul class="left__menu">
