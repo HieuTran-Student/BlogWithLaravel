@@ -41,18 +41,19 @@
 
 			<div id="navigation" class="collapse navbar-collapse flex-column" >
 
-
 				<ul class="navbar-nav flex-column text-left">
 					<li class="nav-item ">
                         @if (isset($userName))
+                        <img  src="{{asset('admin/dashboard_admin/images/home.png')}}" alt="">
                             <a style="text-decoration: none;" class="nav-link" href="{{route('user.homePage')}}">
-                                Blog Home
+                                Home
                                 <span class="sr-only"></span>
                             </a>
                         @else
+                        <img  src="{{asset('admin/dashboard_admin/images/home.png')}}" alt="">
                             <a style="text-decoration: none;" class="nav-link" href="{{route('user.homePageGuest')}}">
                                 <i class="fas fa-home fa-fw mr-2"></i>
-                                Blog Home
+                                Home
                                 <span class="sr-only"></span>
                             </a>
                         @endif
